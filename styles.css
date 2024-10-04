@@ -1,0 +1,132 @@
+/* Navbar styling */
+.navbar {
+    background: linear-gradient(90deg, #c89184b7 0%, rgb(112, 114, 116) 100%);
+    transition: background 0.5s ease; /* Smooth transition for background */
+}
+
+.navbar:hover {
+    background: linear-gradient(90deg, rgb(188, 212, 225) 0%, rgba(44, 62, 80, 1) 100%);
+}
+
+.navbar-nav {
+    font-size: 2rem; /* Increase navbar font size */
+    margin: 0 3%; /* Margin for both sides */
+}
+
+.navbar-logo {
+    width: 150px;
+    height: auto;
+}
+
+/* Nav item icons and animation */
+.nav-link {
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 25px;
+    border-radius: 20px; /* Rounded edges for ellipse effect */
+    padding: 10px; /* Space inside the nav link */
+    transition: color 0.3s ease, transform 0.3s ease; /* Smooth color and scale transition */
+}
+
+.nav-link i {
+    margin-right: 20px; /* Space between icon and text */
+    padding: 10px; /* Padding for the icon area */
+    border-radius: 50%; /* Circular icon background */
+    background-color: rgba(16, 34, 91, 0.2); /* Light background for icons */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for icon */
+}
+
+.nav-link:hover i {
+    transform: rotate(360deg); /* Rotate icon on hover */
+    background-color: rgba(168, 171, 164, 0.4); /* Change background on hover */
+}
+
+.nav-link:hover {
+    color: #0e1a87; /* Change color on hover */
+    transform: translateY(-2px); /* Lift effect on hover */
+}
+
+/* Add some smoothness to navbar interactions */
+.navbar {
+    transition: all 0.3s ease-in-out;
+    .search-bar {
+        display: flex;
+        align-items: center; /* Center items vertically */
+    }
+    
+    .search-input {
+        padding: 25px; /* Increased padding for better usability */
+        width: 250px; /* Set a specific width */
+        border-radius: 20px;
+        border: 3px solid #ccc;
+        transition: width 0.4s ease-in-out; /* Smooth transition for width */
+    }
+    
+    .search-input:focus {
+        width: 500px; /* Width increase on focus */
+        border-color: #007bff; /* Change border color on focus */
+        outline: none; /* Remove default outline */
+    }
+    
+    .search-btn {
+        padding:20px; /* Button padding */
+        background-color: #007bff; /* Button color */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        margin-left: 10px; /* Space between input and button */
+        transition: transform 0.3s ease-in-out; /* Transition for button */
+    }
+    
+    .search-btn:hover {
+        transform: scale(00.5s); /* Scale button on hover */
+    }
+    
+    .search-btn i {
+        margin-right: 10px; /* Space before the icon in button */
+    }
+    
+    /* Add smooth transition to navbar */
+    .navbar {
+        transition: all 0.3s ease-in-out;
+    }
+    body {
+        font-family: Arial, sans-serif;
+      }
+      
+      #news-container {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      
+      .news-item {
+        width: 1000px;
+        margin: 30px;
+        padding: 10px;
+        border: 1px solid #ddd;
+      }
+      
+      .news-title {
+        font-size:100x;
+        font-weight: bold;
+      }
+      .card {
+        transition: transform 0.3s ease, background-color 0.3s ease; /* Smooth transition for hover effects */
+    }
+    
+    .card:hover {
+        transform: scale(1.05); /* Scale effect on hover */
+        background-color: #314f6d; /* Light background color change */
+    }
+    
+    .card-title {
+        font-weight: bold; /* Bold headlines */
+    }
+    
+    .card-footer {
+        font-size: 0.9rem; /* Smaller font for the source and date */
+        color: #6c757d; /* Grey color for the footer text */
+    }
+    
+}
