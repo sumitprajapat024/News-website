@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Newsiify</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="styles.css"> <!-- Link to the CSS file -->
+
+  <style>
+    /* Dark Mode */
+    body.dark-mode {
+      background-color: #121212;
+      color: white;
+    }
+
+    .navbar-dark-mode {
+      background-color: #333;
+    }
+
+    .navbar-light-mode {
+      background-color: #f8f9fa;
+    }
+
+    /* Sticky Navbar */
+    .sticky-top {
+      position: sticky;
+      top: 0;
+      z-index: 1030;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light sticky-top navbar-light-mode">
+    <!-- News Logo -->
+    <a class="navbar-brand" href="#">
+      <img src="logo.webp" alt="Newsify" class="navbar-logo">
+    </a>
+
+    <!-- Toggle button for mobile view -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+
+        <li class="nav-item active">
+          <a class="nav-link" href="#"><i class="fas fa-home"></i> Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><i class="fas fa-globe"></i> World</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><i class="fas fa-flag"></i> Politics</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><i class="fas fa-briefcase"></i> Business</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><i class="fas fa-laptop-code"></i> Technology</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><i class="fas fa-futbol"></i> Sports</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><i class="fas fa-film"></i> Bollywood</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><i class="fas fa-rocket"></i> Science Fiction</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><i class="fas fa-star"></i> Entertainment</a>
+        </li>
+        <!-- Dark Mode Toggle -->
+        <div class="ml-3">
+          <button id="darkModeToggle" class="btn btn-outline-secondary">
+            <i class="fas fa-sun" id="darkModeIcon"></i> <!-- Default to sun icon -->
+          </button>
+        </div>
+
+        </li>
+      </ul>
+
+      <!-- Search Bar -->
+      <div class="search-bar ml-auto">
+        <input type="text" name="query" placeholder="Search..." class="search-input" required>
+        <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
+      </div>
+
+
+  </nav>
+
+  <!-- Pagination -->
+  <nav aria-label="...">
+    <ul class="pagination">
+      <div class="PreNext my-4 d-flex justify-content-center">
+        <li class="page-item disabled">
+          <a class="page-link">Previous</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item active" aria-current="page">
+          <a class="page-link" href="#">2</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+          <a class="page-link" href="#">Next</a>
+        </li>
+      </div>
+    </ul>
+  </nav>
+
+ <!-- News Container -->
+<div id="news-container" class="container mt-4">
+  <div class="row" id="cards-row">
+      <!-- News cards will be dynamically inserted here -->
+  </div>
+</div>
+<!-- News Container -->
+<div id="news-container" class="container mt-4">
+  <div class="row" id="cards-row">
+      <!-- News cards will be dynamically inserted here -->
+  </div>
+</div>
+
+<!-- Scripts -->
+<script>
+  // Toggle Dark Mode
+  const darkModeToggle = document.getElementById('darkModeToggle');
+  const darkModeIcon = document.getElementById('darkModeIcon');
+
+  darkModeToggle.addEventListener('click', function () {
+      document.body.classList.toggle('dark-mode');
+      const isDarkMode = document.body.classList.contains('dark-mode');
+
+      // Change icon based on the mode
+      darkModeIcon.className = isDarkMode ? 'fas fa-moon' : 'fas fa-sun';
+      darkModeToggle.textContent = isDarkMode ? ' Light Mode' : ' Dark Mode';
+      document.querySelector('.navbar').classList.toggle('navbar-dark-mode');
+      document.querySelector('.navbar').classList.toggle('navbar-light-mode');
+  });
+
+  let articlesPerPage = 10; // Number of articles per page
+  let totalPages;
+  console.log("hey I am JavaScript");
+
+  // Extract query and page number from the URL, with default values
+  let query = window.location.search.split("?")[1]?.split("&")[0]?.split("=")[1] || 'general';
+  let pageNo = parseInt(window.location.search.split("?")[1]?.split("&")[1]?.split("=")[1]) || 1;
+
+  console.log(query, pageNo);
+
+  const fetchNews = async (query, pageNo) => {
+      const API_KEY = 'd762d5bd701249f9accfbb6f86c5cb2e';
+
+      try {
+          let response = await fetch(`https://newsapi.org/v2/everything?q=${query}&apiKey=${API_KEY}&pageSize=${articlesPerPage}&page=${pageNo}`);
+          let result = await response.json();
+
+          console.log(result);
+          totalPages = Math.ceil(result.totalResults / articlesPerPage);
+
+          // Update previous and next page links
+          document.querySelector('.page-item.disabled a').href = `/?q=${query}&pageNo=${pageNo - 1}`;
+          document.querySelector('.page-item.active a').href = `/?q=${query}&pageNo=${pageNo + 1}`;
+
+          let content = '';
+          for (let item of result.articles) {
+              content += `
+                  <div class="col-md-4 col-lg-3 mb-4"> <!-- Responsive column for cards -->
+                      <div class="card h-100"> <!-- Use h-100 to ensure cards have the same height -->
+                          <img src="${item.urlToImage ? item.urlToImage : 'default-image.jpg'}" class="card-img-top" alt="Image">
+                          <div class="card-body">
+                              <h5 class="card-title">${item.title}</h5>
+                              <p class="card-text">${item.description}</p>
+                              <a href="${item.url}" class="btn btn-primary">Read more...</a>
+                          </div>
+                      </div>
+                  </div>
+              `;
+          }
+
+          document.getElementById('cards-row').innerHTML = content; // Display articles in container
+
+      } catch (error) {
+          console.error("Error fetching news:", error);
+      }
+  };
+
+  // Fetch news when the page loads
+  fetchNews(query, pageNo);
+</script>
+
+
+ 
